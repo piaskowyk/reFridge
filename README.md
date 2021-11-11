@@ -10,6 +10,8 @@ Create `.env` file and set following environmental vars:
 ```bash
 PRIVATE_KEY=###
 ```
+Remember to install swi-prolog and add executable to PATH  
+https://www.swi-prolog.org/download/stable
 ## Run
 ```bash
 python ./main.py

@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
 load_dotenv()
 import os
-import discord
 from src.client import ReFridgeBotClient
 
 TOKEN = os.getenv('PRIVATE_KEY', None)
