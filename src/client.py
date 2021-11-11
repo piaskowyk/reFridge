@@ -20,7 +20,4 @@ class ReFridgeBotClient(discord.Client):
             return
         is_response, response_message = await self.message_processor.parse(message, self)
         if is_response:
-            if len(response_message) > 2000:
-                await send_long_message(message.channel, response_message)
-            else:
-                await message.channel.send(response_message)
+            await send_long_message(message.channel, response_message)
