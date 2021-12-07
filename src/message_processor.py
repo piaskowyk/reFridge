@@ -16,8 +16,6 @@ class MessageProcessor:
             response = self.add_ingredient(message[len('+'):])
         elif message == 'czysc':
             response = self.clear_ingredients()
-        elif message == 'owoce':
-            response = self.owoce()
         elif message == '?przepisy':
             response = self.get_recipes()
         elif message == '?s':
@@ -43,10 +41,6 @@ class MessageProcessor:
     def clear_ingredients(self):
         self.prolog.retractall(f'ingredients(_)')
         return f"Wyczyszczono listę składników"
-
-    def owoce(self):
-        fruits_count = list(self.prolog.query(f'fruits_count(X)'))[0]['X']
-        return str(fruits_count)
 
     def get_recipes(self):
         recipes = [output['X'] for output in self.prolog.query(f'get_recipes(X)')]

@@ -4,7 +4,7 @@ has_all_ingredients(RequiredIngredients) :-
     forall(member(Element, RequiredIngredients), all_ingredients(Element)).
 
 has_any_ingredients(PossibleIngredients) :-
-        findall(X, (member(X, PossibleIngredients), ingredients(X)), _).
+        member(X, PossibleIngredients), all_ingredients(X).
 
 mieso_count(Count) :- !,
         findall(X, (mieso(X), all_ingredients(X)), L),
@@ -103,16 +103,13 @@ mieso("konina").
 mieso("parówki").
 
 all_ingredients(X) :- ingredients(X).
-all_ingredients("mięso mielone") :- all_ingredients("wołowina"); all_ingredients("wieprzowina").
-all_ingredients("wołowina") :- all_ingredients("karkówka wołowa"); all_ingredients("łopatka wołowa").
-all_ingredients("wieprzowina") :- all_ingredients("schab"); all_ingredients("polędwiczka"); all_ingredients("szynka").
-all_ingredients("drób") :- all_ingredients("udka"); all_ingredients("skrzydełka"); all_ingredients("pierś z kurczaka").
+all_ingredients("mięso mielone") :- has_any_ingredients(["wołowina", "wieprzowina"]).
+all_ingredients("wołowina") :- has_any_ingredients(["karkówka wołowa", "łopatka wołowa"]).
+all_ingredients("wieprzowina") :- has_any_ingredients(["schab", "polędwiczka", "szynka"]).
+all_ingredients("drób") :- has_any_ingredients(["udka", "skrzydełka", "pierś z kurczaka"]).
 
-all_ingredients("dżem") :- all_ingredients("marmolada"); all_ingredients("dżem truskawkowy");
-                           all_ingredients("dżem malinowy"); all_ingredients("powidło").
-all_ingredients("pieczywo") :- all_ingredients("chleb"); all_ingredients("bułka");
-                               all_ingredients("chleb tostowy"); all_ingredients("chleb pszenny");
-                               all_ingredients("chleb razowy");.
+all_ingredients("dżem") :- has_any_ingredients(["marmolada", "dżem truskawkowy", "dżem malinowy", "powidło"]).
+all_ingredients("pieczywo") :- has_any_ingredients(["chleb", "bułka", "chleb tostowy", "chleb pszenny", "chleb razowy"]).
 
 recipe("bigos") :- has_all_ingredients(["kiełbasa", "kapusta"]).
 recipe("bitki") :- has_all_ingredients(["olej", "wołowina"]).
@@ -135,8 +132,8 @@ recipe("gofry") :- has_all_ingredients(["olej", "mąka", "mleko", "jajko"]).
 recipe("jajecznicza") :- has_all_ingredients(["olej", "jajko", "sól"]).
 recipe("jajecznicza mięsna") :- has_all_ingredients(["olej", "jajko", "sól"]), mieso_count(C), C > 0.
 recipe("jajecznicza ważywna") :- has_all_ingredients(["olej", "jajko", "sól"]), vegetable_count(C), C > 0.
-recipe("beza") :- has_all_ingredients(["olej", "jajko", "cókier"]).
-recipe("gorąca czekolada") :- has_all_ingredients(["mleko", "kakao", "cókier"]).
+recipe("beza") :- has_all_ingredients(["olej", "jajko", "cukier"]).
+recipe("gorąca czekolada") :- has_all_ingredients(["mleko", "kakao", "cukier"]).
 
 recipe(X) :- custom_recipe(X, RequiredIngredients), has_all_ingredients(RequiredIngredients).
 
