@@ -105,7 +105,7 @@ mieso("parówki").
 all_ingredients(X) :- ingredients(X).
 all_ingredients("mięso mielone") :- has_any_ingredients(["wołowina", "wieprzowina"]).
 all_ingredients("wołowina") :- has_any_ingredients(["karkówka wołowa", "łopatka wołowa"]).
-all_ingredients("wieprzowina") :- has_any_ingredients(["schab", "polędwiczka", "szynka"]).
+all_ingredients("wieprzowina") :- has_any_ingredients(["schab", "polędwiczka", "szynka", "boczek"]).
 all_ingredients("drób") :- has_any_ingredients(["udka", "skrzydełka", "pierś z kurczaka"]).
 
 all_ingredients("dżem") :- has_any_ingredients(["marmolada", "dżem truskawkowy", "dżem malinowy", "powidło"]).
@@ -134,6 +134,8 @@ recipe("jajecznicza mięsna") :- has_all_ingredients(["olej", "jajko", "sól"]),
 recipe("jajecznicza ważywna") :- has_all_ingredients(["olej", "jajko", "sól"]), vegetable_count(C), C > 0.
 recipe("beza") :- has_all_ingredients(["olej", "jajko", "cukier"]).
 recipe("gorąca czekolada") :- has_all_ingredients(["mleko", "kakao", "cukier"]).
+recipe("kopiec kreta") :- has_all_ingredients(["mąka", "kakao", "cukier", "proszek do pieczenia", "mleko", "masło"]).
+recipe("kremówka") :- has_all_ingredients(["wafel", "margaryna"]).
 
 recipe(X) :- custom_recipe(X, RequiredIngredients), has_all_ingredients(RequiredIngredients).
 
