@@ -44,7 +44,6 @@ class MessageProcessor:
         self.prolog.retractall(f'ingredients(_)')
         return f"Wyczyszczono listę składników"
 
-    
     def owoce(self):
         fruits_count = list(self.prolog.query(f'fruits_count(X)'))[0]['X']
         return str(fruits_count)
