@@ -1,7 +1,7 @@
 :- dynamic(ingredients/1).
 
 has_all_ingredients(RequiredIngredients) :-
-    forall(member(Element, RequiredIngredients), all_ingredients(Element)).
+        forall(member(Element, RequiredIngredients), all_ingredients(Element)).
 
 has_any_ingredients(PossibleIngredients) :-
         member(X, PossibleIngredients), all_ingredients(X).
@@ -102,7 +102,7 @@ mieso("baranina").
 mieso("konina").
 mieso("parówki").
 
-all_ingredients(X) :- ingredients(X).
+all_ingredients(X) :- ingredients(X); recipe(X).
 all_ingredients("mięso mielone") :- has_any_ingredients(["wołowina", "wieprzowina"]).
 all_ingredients("wołowina") :- has_any_ingredients(["karkówka wołowa", "łopatka wołowa"]).
 all_ingredients("wieprzowina") :- has_any_ingredients(["schab", "polędwiczka", "szynka", "boczek"]).
@@ -118,7 +118,7 @@ recipe("schabowy z ziemiakami") :- has_all_ingredients(["schab", "ziemniak"]).
 recipe("spaghetti bolognese") :- has_all_ingredients(["mięso mielone", "pomidor", "olej", "czosnek", "makaron"]).
 recipe("sałatka owocowa") :- fruits_count(C), C > 1.
 recipe("sałatka warzywna") :- vegetable_count(C), C > 2.
-recipe("sałatka warzywna z majonezem") :- vegetable_count(C), C>2, has_all_ingredients(["majonez"]).
+recipe("sałatka warzywna z majonezem") :- has_all_ingredients(["sałatka warzywna", "majonez"]).
 recipe("mięsne tornado") :- mieso_count(C), C > 2.
 recipe("burger") :- mieso_count(C), C > 0, has_all_ingredients(["olej"]), has_any_ingredients(["chleb", "chleb tostowy"]).
 recipe("basic kanapka") :- has_all_ingredients(["masło", "pieczywo"]), has_any_ingredients(["szynka", "ser"]).
@@ -127,15 +127,17 @@ recipe("parówki w cieście") :- has_all_ingredients(["olej", "parówka", "mąka
 recipe("placki ziemniaczane") :- has_all_ingredients(["olej", "ziemniaki", "mąka ziemniaczana", "woda", "sól"]).
 recipe("frytki") :- has_all_ingredients(["olej", "ziemniaki", "keczup", "sól"]).
 recipe("naleśniki") :- has_all_ingredients(["olej", "mąka", "mleko", "jajko"]).
-recipe("naleśniki z dżemem") :- has_all_ingredients(["olej", "mąka", "mleko", "jajko", "dżem"]).
+recipe("naleśniki z dżemem") :- has_all_ingredients(["naleśniki", "dżem"]).
 recipe("gofry") :- has_all_ingredients(["olej", "mąka", "mleko", "jajko"]).
 recipe("jajecznicza") :- has_all_ingredients(["olej", "jajko", "sól"]).
-recipe("jajecznicza mięsna") :- has_all_ingredients(["olej", "jajko", "sól"]), mieso_count(C), C > 0.
-recipe("jajecznicza ważywna") :- has_all_ingredients(["olej", "jajko", "sól"]), vegetable_count(C), C > 0.
+recipe("jajecznicza mięsna") :- has_all_ingredients(["jajecznicza"]), mieso_count(C), C > 0.
+recipe("jajecznicza ważywna") :- has_all_ingredients(["jajecznicza"]), vegetable_count(C), C > 0.
 recipe("beza") :- has_all_ingredients(["olej", "jajko", "cukier"]).
 recipe("gorąca czekolada") :- has_all_ingredients(["mleko", "kakao", "cukier"]).
 recipe("kopiec kreta") :- has_all_ingredients(["mąka", "kakao", "cukier", "proszek do pieczenia", "mleko", "masło"]).
 recipe("kremówka") :- has_all_ingredients(["wafel", "margaryna"]).
+recipe("gyros") :- has_all_ingredients(["drób", "przyprawa gyros","śmietana"]), vegetable_count(C), C > 1.
+recipe("gyros w picie") :- has_all_ingredients(["gyros", "pita"]).
 
 recipe(X) :- custom_recipe(X, RequiredIngredients), has_all_ingredients(RequiredIngredients).
 
